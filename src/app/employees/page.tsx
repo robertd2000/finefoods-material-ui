@@ -13,12 +13,10 @@ import {
 } from "@refinedev/mui";
 import React from "react";
 
-export default function BlogPostList() {
+export default function EmployeesList() {
   const { dataGridProps } = useDataGrid({
-    syncWithLocation: true,
+    resource: "blog_posts",
   });
-
-  console.log("dataGridProps", dataGridProps?.rows);
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "categories",

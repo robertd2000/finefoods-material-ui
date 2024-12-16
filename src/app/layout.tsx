@@ -34,7 +34,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense>
-          <GitHubBanner />
           <RefineKbarProvider>
             <ColorModeContextProvider defaultMode={defaultMode}>
               <RefineSnackbarProvider>
@@ -55,11 +54,11 @@ export default function RootLayout({
                         },
                       },
                       {
-                        name: "categories",
-                        list: "/categories",
-                        create: "/categories/create",
-                        edit: "/categories/edit/:id",
-                        show: "/categories/show/:id",
+                        name: "employees",
+                        list: "/employees",
+                        create: "/employees/create",
+                        edit: "/employees/edit/:id",
+                        show: "/employees/show/:id",
                         meta: {
                           canDelete: true,
                         },
