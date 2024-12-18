@@ -1,6 +1,13 @@
 "use client";
 
-import { Autocomplete, Box, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Grid,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Create, useAutocomplete } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 import { Controller } from "react-hook-form";
@@ -26,96 +33,185 @@ export default function BlogPostCreate() {
         sx={{ display: "flex", flexDirection: "column" }}
         autoComplete="off"
       >
-        <TextField
-          {...register("title", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          type="text"
-          label={"Title"}
-          name="title"
-        />
-        <TextField
-          {...register("content", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.content}
-          helperText={(errors as any)?.content?.message}
-          margin="normal"
-          fullWidth
-          InputLabelProps={{ shrink: true }}
-          multiline
-          label={"Content"}
-          name="content"
-        />
-        <Controller
-          control={control}
-          name={"category.id"}
-          rules={{ required: "This field is required" }}
-          // eslint-disable-next-line
-          defaultValue={null as any}
-          render={({ field }) => (
-            <Autocomplete
-              {...categoryAutocompleteProps}
-              {...field}
-              onChange={(_, value) => {
-                field.onChange(value.id);
-              }}
-              getOptionLabel={(item) => {
-                return (
-                  categoryAutocompleteProps?.options?.find((p) => {
-                    const itemId =
-                      typeof item === "object"
-                        ? item?.id?.toString()
-                        : item?.toString();
-                    const pId = p?.id?.toString();
-                    return itemId === pId;
-                  })?.title ?? ""
-                );
-              }}
-              isOptionEqualToValue={(option, value) => {
-                const optionId = option?.id?.toString();
-                const valueId =
-                  typeof value === "object"
-                    ? value?.id?.toString()
-                    : value?.toString();
-                return value === undefined || optionId === valueId;
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label={"Category"}
-                  margin="normal"
-                  variant="outlined"
-                  error={!!(errors as any)?.category?.id}
-                  helperText={(errors as any)?.category?.id?.message}
-                  required
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <TextField
+              {...register("title", {
+                required: "This field is required",
+              })}
+              error={!!(errors as any)?.title}
+              helperText={(errors as any)?.title?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              type="text"
+              label={"Имя"}
+              name="title"
+            />{" "}
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              {...register("content", {
+                required: "This field is required",
+              })}
+              error={!!(errors as any)?.content}
+              helperText={(errors as any)?.content?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              multiline
+              label={"Фамилия"}
+              name="content"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              {...register("title", {
+                required: "This field is required",
+              })}
+              error={!!(errors as any)?.title}
+              helperText={(errors as any)?.title?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              type="text"
+              label={"Email"}
+              name="title"
+            />{" "}
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              {...register("content", {
+                required: "This field is required",
+              })}
+              error={!!(errors as any)?.content}
+              helperText={(errors as any)?.content?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              multiline
+              label={"Номер телефона"}
+              name="content"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Controller
+              control={control}
+              name={"category.id"}
+              rules={{ required: "This field is required" }}
+              // eslint-disable-next-line
+              defaultValue={null as any}
+              render={({ field }) => (
+                <Autocomplete
+                  {...categoryAutocompleteProps}
+                  {...field}
+                  onChange={(_, value) => {
+                    field.onChange(value.id);
+                  }}
+                  getOptionLabel={(item) => {
+                    return (
+                      categoryAutocompleteProps?.options?.find((p) => {
+                        const itemId =
+                          typeof item === "object"
+                            ? item?.id?.toString()
+                            : item?.toString();
+                        const pId = p?.id?.toString();
+                        return itemId === pId;
+                      })?.title ?? ""
+                    );
+                  }}
+                  isOptionEqualToValue={(option, value) => {
+                    const optionId = option?.id?.toString();
+                    const valueId =
+                      typeof value === "object"
+                        ? value?.id?.toString()
+                        : value?.toString();
+                    return value === undefined || optionId === valueId;
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={"Категория"}
+                      variant="outlined"
+                      error={!!(errors as any)?.category?.id}
+                      helperText={(errors as any)?.category?.id?.message}
+                      required
+                    />
+                  )}
                 />
               )}
             />
-          )}
-        />
-        <Controller
-          name="status"
-          control={control}
-          render={({ field }) => {
-            return (
-              <Select
-                {...field}
-                value={field?.value || "draft"}
-                label={"Status"}
-              >
-                <MenuItem value="draft">Draft</MenuItem>
-                <MenuItem value="published">Published</MenuItem>
-                <MenuItem value="rejected">Rejected</MenuItem>
-              </Select>
-            );
-          }}
-        />
+          </Grid>
+
+          <Grid item xs={6}>
+            <Controller
+              name="status"
+              control={control}
+              render={({ field }) => {
+                return (
+                  <Select
+                    {...field}
+                    value={field?.value || "draft"}
+                    label={"Статус"}
+                    fullWidth
+                  >
+                    <MenuItem value="draft">Draft</MenuItem>
+                    <MenuItem value="published">Published</MenuItem>
+                    <MenuItem value="rejected">Rejected</MenuItem>
+                  </Select>
+                );
+              }}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <TextField
+              {...register("content", {
+                required: "This field is required",
+              })}
+              multiline
+              error={!!(errors as any)?.content}
+              helperText={(errors as any)?.content?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              minRows={5}
+              label={"Адрес"}
+              name="content"
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <TextField
+              {...register("title", {
+                required: "This field is required",
+              })}
+              error={!!(errors as any)?.title}
+              helperText={(errors as any)?.title?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              type="text"
+              label={"Должность"}
+              name="title"
+            />{" "}
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              {...register("content", {
+                required: "This field is required",
+              })}
+              error={!!(errors as any)?.content}
+              helperText={(errors as any)?.content?.message}
+              margin="normal"
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              multiline
+              label={"Пол"}
+              name="content"
+            />
+          </Grid>
+        </Grid>
       </Box>
     </Create>
   );

@@ -18,6 +18,8 @@ export default function EmployeesList() {
     resource: "blog_posts",
   });
 
+  console.log("dataGridProps", dataGridProps?.rows);
+
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "categories",
     ids:
@@ -43,33 +45,14 @@ export default function EmployeesList() {
       {
         field: "title",
         headerName: "Title",
-        minWidth: 200,
+        minWidth: 400,
         display: "flex",
       },
-      {
-        field: "content",
-        flex: 1,
-        headerName: "Content",
-        minWidth: 250,
-        display: "flex",
-        renderCell: function render({ value }) {
-          if (!value) return "-";
-          return (
-            <Typography
-              component="p"
-              whiteSpace="pre"
-              overflow="hidden"
-              textOverflow="ellipsis"
-            >
-              {value}
-            </Typography>
-          );
-        },
-      },
+
       {
         field: "category",
         headerName: "Category",
-        minWidth: 160,
+        minWidth: 360,
         display: "flex",
         valueGetter: (_, row) => {
           const value = row?.category;
@@ -86,13 +69,13 @@ export default function EmployeesList() {
       {
         field: "status",
         headerName: "Status",
-        minWidth: 80,
+        minWidth: 280,
         display: "flex",
       },
       {
         field: "createdAt",
         headerName: "Created at",
-        minWidth: 120,
+        minWidth: 220,
         display: "flex",
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -101,9 +84,9 @@ export default function EmployeesList() {
       {
         field: "actions",
         headerName: "Actions",
-        align: "right",
-        headerAlign: "right",
-        minWidth: 120,
+        align: "center",
+        headerAlign: "center",
+        minWidth: 150,
         sortable: false,
         display: "flex",
         renderCell: function render({ row }) {
